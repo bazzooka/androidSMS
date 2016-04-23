@@ -24,14 +24,14 @@ import android.content.ContentResolver;
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
 public class MyService extends BackgroundService implements OnSmsReceivedListener, TextToSpeech.OnInitListener {
-	
+
 	private final static String TAG = MyService.class.getSimpleName();
-	
+
 	private String mHelloTo = "World";
 	private SmsBroadcastReceiver mSMSreceiver;
 	private IntentFilter mIntentFilter;
 	private TextToSpeech mTts;
-    private final int CHECK_CODE = 0x1; 
+    private final int CHECK_CODE = 0x1;
 
 	@Override
     public void onCreate(){
@@ -70,10 +70,6 @@ public class MyService extends BackgroundService implements OnSmsReceivedListene
 	            if (result == TextToSpeech.LANG_MISSING_DATA ||
 	                result == TextToSpeech.LANG_NOT_SUPPORTED) {
 	                Log.v(TAG, "Language is not available.");
-	            } else {
-
-	                speak("Monsieur, les systèmes sont démarrés");
-
 	            }
 	        } else {
 	            Log.v(TAG, "Could not initialize TextToSpeech.");
@@ -82,7 +78,7 @@ public class MyService extends BackgroundService implements OnSmsReceivedListene
 
 	public void speak(String str) {
       mTts.speak(str,
-                TextToSpeech.QUEUE_ADD, 
+                TextToSpeech.QUEUE_ADD,
                 null);
 	}
 
@@ -144,10 +140,10 @@ public class MyService extends BackgroundService implements OnSmsReceivedListene
 	@Override
 	protected JSONObject doWork() {
 		JSONObject result = new JSONObject();
-		
+
 		try {
-			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
-			String now = df.format(new Date(System.currentTimeMillis())); 
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String now = df.format(new Date(System.currentTimeMillis()));
 
 			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
 			result.put("Message", msg);
@@ -155,19 +151,19 @@ public class MyService extends BackgroundService implements OnSmsReceivedListene
 			Log.d(TAG, msg);
 		} catch (JSONException e) {
 		}
-		
-		return result;	
+
+		return result;
 	}
 
 	@Override
 	protected JSONObject getConfig() {
 		JSONObject result = new JSONObject();
-		
+
 		try {
 			result.put("HelloTo", this.mHelloTo);
 		} catch (JSONException e) {
 		}
-		
+
 		return result;
 	}
 
@@ -178,8 +174,8 @@ public class MyService extends BackgroundService implements OnSmsReceivedListene
 				this.mHelloTo = config.getString("HelloTo");
 		} catch (JSONException e) {
 		}
-		
-	}     
+
+	}
 
 	@Override
 	protected JSONObject initialiseLatestResult() {
@@ -190,13 +186,13 @@ public class MyService extends BackgroundService implements OnSmsReceivedListene
 	@Override
 	protected void onTimerEnabled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onTimerDisabled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
